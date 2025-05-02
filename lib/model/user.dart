@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -30,21 +32,21 @@ class VapiCallService {
     final response = await http.post(url, headers: headers, body: body);
 
     if (response.statusCode == 200) {
-      ScaffoldMessenger.of(cont).showSnackBar(
-        SnackBar(
-          content: Text('Call has been places succesfully'),
-          duration: Duration(seconds: 2),
-        ),
-      );
-      print('Call initiated successfully.');
+      // ScaffoldMessenger.of(cont).showSnackBar(
+      //   SnackBar(
+      //     content: Text('Call has been places succesfully'),
+      //     duration: Duration(seconds: 2),
+      //   ),
+      // );
+      log('Call initiated successfully.');
     } else {
-      ScaffoldMessenger.of(cont).showSnackBar(
-        SnackBar(
-          content: Text('Call failed due to ${response.body}'),
-          duration: Duration(seconds: 2),
-        ),
-      );
-      print('Failed to initiate call: ${response.body}');
+      // ScaffoldMessenger.of(cont).showSnackBar(
+      //   SnackBar(
+      //     content: Text('Call failed due to ${response.body}'),
+      //     duration: Duration(seconds: 2),
+      //   ),
+      // );
+      log('Failed to initiate call: ${response.body}');
     }
   }
 }
