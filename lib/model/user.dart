@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -9,7 +10,8 @@ class VapiCallService {
   final String phoneNumberId =
       '222663ec-c7ad-4d5c-9005-ec082c348284'; //mine '51fb11d9-0a2d-4df6-b84d-78823658ca2b';
 
-  Future<void> makeOutboundCall(String customerNumber) async {
+  Future<void> makeOutboundCall(
+      String customerNumber, BuildContext cont) async {
     final url = Uri.parse('https://api.vapi.ai/call');
 
     final headers = {
@@ -28,8 +30,20 @@ class VapiCallService {
     final response = await http.post(url, headers: headers, body: body);
 
     if (response.statusCode == 200) {
+      ScaffoldMessenger.of(cont).showSnackBar(
+        SnackBar(
+          content: Text('Call has been places succesfully'),
+          duration: Duration(seconds: 2),
+        ),
+      );
       print('Call initiated successfully.');
     } else {
+      ScaffoldMessenger.of(cont).showSnackBar(
+        SnackBar(
+          content: Text('Call failed due to ${response.body}'),
+          duration: Duration(seconds: 2),
+        ),
+      );
       print('Failed to initiate call: ${response.body}');
     }
   }
